@@ -1,0 +1,47 @@
+#version: '3.8'
+
+#services:
+ # jenkins:
+  #  image: jenkins/jenkins:lts
+   # container_name: jenkins
+    #ports:
+     # - "8080:8080"    # Web UI port
+      #- "50000:50000"  # Agent connection port
+    #volumes:
+     # - jenkins_home:/var/jenkins_home
+    #environment:
+     # - JENKINS_OPTS=--prefix=/jenkins
+    #networks:
+     # - jenkins_network
+    #restart: unless-stopped
+
+#volumes:
+ # jenkins_home:
+  #  driver: local
+
+#networks:
+ # jenkins_network:
+  #  driver: bridge
+version: '3.8'
+
+services:
+  jenkins:
+    build: .
+    container_name: jenkins_custom
+    ports:
+      - "8080:8080"    # Web UI port
+      - "50000:50000"  # Agent connection port
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins_network
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:
+    driver: local
+
+networks:
+  jenkins_network:
+    driver: bridge
+
